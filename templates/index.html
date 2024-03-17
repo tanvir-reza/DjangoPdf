@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <div class='row'>
+            <div class='col-md-4'>
+                <div class="card">
+                    <div class="card-header">
+                        <p class='text-success'>Print Pdf</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url "printPdf" %}" class="btn btn-primary">Hit</a>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class="card">
+                    <div class="card-header">
+                         <p class='text-danger'>Exprot CSV</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url "exportCSV" %}" class="btn btn-primary">Hit</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class='col-md-4'>
+                <div class="card">
+                    <div class="card-header">
+                         <p class='text-success'>Import Student Data</p>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url "importData" %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input required type="file" name="myfile" class="form-control">
+                            <button type="submit" class="btn btn-primary" >Import</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students%}
+                <tr>
+                    <td>{{student.name}}</td>
+                    <td>{{student.age}}</td>
+                    <td>{{student.phone}}</td>
+                </tr>
+                {% endfor %}
+                
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
